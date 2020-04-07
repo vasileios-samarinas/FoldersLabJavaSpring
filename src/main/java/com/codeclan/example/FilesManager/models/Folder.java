@@ -16,11 +16,30 @@ public class Folder {
     @Column(name = "title")
     private String title;
 
-    private List<File>files;
-
     @ManyToOne
     @JoinTable(name = "user_id")
     private User user;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "folders_files",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "folder_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "file_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            }
+    )
+    private List<File>files;
 
 
     public Folder(String title, User user) {
@@ -31,5 +50,27 @@ public class Folder {
 
     public Folder(){}
 
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

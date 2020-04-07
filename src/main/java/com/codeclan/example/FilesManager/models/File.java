@@ -22,6 +22,24 @@ public class File {
     private int size;
 
 
+    @ManyToMany
+    @JoinTable(
+            name = "folders_files",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "file_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "folder_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            }
+    )
     private List<Folder>folders;
 
     public File(String name, String extension, int size) {
