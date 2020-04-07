@@ -18,6 +18,8 @@ public class Folder {
 
     private List<File>files;
 
+    @ManyToOne
+    @JoinTable(name = "user_id")
     private User user;
 
 
