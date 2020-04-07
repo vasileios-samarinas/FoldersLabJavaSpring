@@ -1,19 +1,37 @@
 package com.codeclan.example.FilesManager.models;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name="files")
 public class File {
 
-    private String name;
-    private String extension;
-    private int size;
-    private Folder folder;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public File(String name, String extension, int size, Folder folder) {
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "extension")
+    private String extension;
+
+    @Column(name = "size")
+    private int size;
+
+
+    private List<Folder>folders;
+
+    public File(String name, String extension, int size) {
         this.name = name;
         this.extension = extension;
         this.size = size;
-        this.folder = folder;
+        this.folders = new ArrayList<>();
     }
+
+    public File(){}
 
     public String getName() {
         return name;
@@ -39,11 +57,11 @@ public class File {
         this.size = size;
     }
 
-    public Folder getFolder() {
-        return folder;
+    public List<Folder> getFolders() {
+        return folders;
     }
 
-    public void setFolder(Folder folder) {
-        this.folder = folder;
+    public void setFolders(List<Folder> folders) {
+        this.folders = folders;
     }
 }
