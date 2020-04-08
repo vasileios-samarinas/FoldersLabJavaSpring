@@ -27,13 +27,12 @@ public class DataLoader implements ApplicationRunner {
     public DataLoader(){}
 
     public void run (ApplicationArguments args) throws Exception {
+//
+//        userRepository.deleteAll();
+//        folderRepository.deleteAll();
+//        fileRepository.deleteAll();
 
-        fileRepository.deleteAll();
-        folderRepository.deleteAll();
-        userRepository.deleteAll();
 
-        User bob = new User("Bob");
-        userRepository.save(bob);
 
         User mike = new User("Mike");
         userRepository.save(mike);
@@ -41,11 +40,6 @@ public class DataLoader implements ApplicationRunner {
         User harry = new User("Harry");
         userRepository.save(harry);
 
-        Folder music = new Folder("Music",bob);
-        folderRepository.save(music);
-
-        Folder pictures = new Folder("Pictures",bob);
-        folderRepository.save(pictures);
 
         Folder apps = new Folder("Apps",mike);
         folderRepository.save(apps);
@@ -53,17 +47,6 @@ public class DataLoader implements ApplicationRunner {
         Folder flash = new Folder("Flash",harry);
         folderRepository.save(flash);
 
-        Folder teams = new Folder("Teams",harry);
-        folderRepository.save(teams);
-
-        Folder balls = new Folder("Balls",bob);
-        folderRepository.save(balls);
-
-        File names= new File("names","ptt",5);
-        fileRepository.save(names);
-
-        File surnames= new File("surnames","java",10);
-        fileRepository.save(surnames);
 
         File list= new File("list","ptt",90);
         fileRepository.save(list);
@@ -74,12 +57,6 @@ public class DataLoader implements ApplicationRunner {
         File flags= new File("flags","java",100);
         fileRepository.save(flags);
 
-        balls.addFile(names);
-        balls.addFile(surnames);
-        folderRepository.save(balls);
-
-        surnames.addFolder(teams);
-        fileRepository.save(surnames);
 
         list.addFolder(flash);
         list.addFolder(apps);
@@ -88,12 +65,9 @@ public class DataLoader implements ApplicationRunner {
         recipes.addFolder(apps);
         fileRepository.save(recipes);
 
-        music.addFile(flags);
-        music.addFile(recipes);
-        folderRepository.save(music);
+        apps.addFile(list);
+        folderRepository.save(apps);
 
-        surnames.addFolder(flash);
-        fileRepository.save(surnames);
 
         }
     }

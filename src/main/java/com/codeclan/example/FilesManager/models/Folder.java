@@ -1,5 +1,8 @@
 package com.codeclan.example.FilesManager.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +20,12 @@ public class Folder {
     private String title;
 
     @ManyToOne
-    @JoinTable(name = "user_id")
+    @JoinColumn(name = "user_id",nullable = false)
     private User user;
 
-
     @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinTable(
-            name = "folders_files",
             joinColumns = {
                     @JoinColumn(
                             name = "folder_id",
@@ -77,4 +79,15 @@ public class Folder {
     public void addFile(File file){
         this.files.add(file);
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+
 }

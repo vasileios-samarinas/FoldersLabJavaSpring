@@ -1,5 +1,8 @@
 package com.codeclan.example.FilesManager.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,19 +15,20 @@ public class File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column
     private String name;
 
-    @Column(name = "extension")
+    @Column
     private String extension;
 
-    @Column(name = "size")
+    @Column
     private int size;
 
-
+    @JsonBackReference
     @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinTable(
-            name = "folders_files",
+            name = "files_folders",
             joinColumns = {
                     @JoinColumn(
                             name = "file_id",
@@ -49,7 +53,9 @@ public class File {
         this.folders = new ArrayList<>();
     }
 
-    public File(){}
+    public File(){
+
+    }
 
     public String getName() {
         return name;
@@ -85,5 +91,13 @@ public class File {
 
     public void addFolder(Folder folder){
         this.folders.add(folder);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
